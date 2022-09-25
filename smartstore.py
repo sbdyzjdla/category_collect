@@ -10,27 +10,35 @@ import json
 import time
 
 
-# In[100]:
+# In[110]:
 
 
 # 대분류부터 시작 baseurl, params 세팅
 
 import requests
-baseurl = 'https://sell.smartstore.naver.com/api/category-search/'
+
+rooturl = 'https://sell.smartstore.naver.com/api/category-search/'
 id = '50000004'
+rparams = {'isValid': 'true'}
+res = requests.get(rooturl+id, params=rparams)
+res = res.json()
+
+total04 = []
+total04.append(res)
+
+baseurl = 'https://sell.smartstore.naver.com/api/category-search/'
 url = baseurl + id
 params = {'_action': 'getChild', 'isValid': 'true'}
 res = requests.get(url, params=params)
-
 res = res.json()
 
 
-# In[101]:
+# In[111]:
 
 
 # depth2 저장 및 depth2 ids 저장 lastLevel 이 true인 id는 하위 카테고리 조회하지않음
 
-total04 = []
+
 depth2 = []
 
 for list in res:
@@ -42,7 +50,7 @@ print(depth2)
 print(len(total04))
 
 
-# In[102]:
+# In[112]:
 
 
 # depth3 저장 및 depth3 ids 저장 astLevel 이 true인 id는 하위 카테고리 조회하지않음
@@ -62,7 +70,7 @@ for idx in depth2:
             depth3.append(list['id'])
 
 
-# In[103]:
+# In[113]:
 
 
 # depth4 카테고리 저장
@@ -76,4 +84,14 @@ for idx in depth3:
         total04.append(list)
         print(list)
         print()
+
+
+# In[115]:
+
+
+# 'id' -> '_id'
+# False -> false
+# True -> true
+
+print(total04)
 
