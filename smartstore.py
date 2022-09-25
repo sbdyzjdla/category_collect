@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
+# In[130]:
 
 
 import urllib.request
@@ -10,7 +10,7 @@ import json
 import time
 
 
-# In[110]:
+# In[171]:
 
 
 # 대분류부터 시작 baseurl, params 세팅
@@ -18,7 +18,7 @@ import time
 import requests
 
 rooturl = 'https://sell.smartstore.naver.com/api/category-search/'
-id = '50000004'
+id = '50000002'
 rparams = {'isValid': 'true'}
 res = requests.get(rooturl+id, params=rparams)
 res = res.json()
@@ -33,7 +33,7 @@ res = requests.get(url, params=params)
 res = res.json()
 
 
-# In[111]:
+# In[172]:
 
 
 # depth2 저장 및 depth2 ids 저장 lastLevel 이 true인 id는 하위 카테고리 조회하지않음
@@ -50,7 +50,7 @@ print(depth2)
 print(len(total04))
 
 
-# In[112]:
+# In[173]:
 
 
 # depth3 저장 및 depth3 ids 저장 astLevel 이 true인 id는 하위 카테고리 조회하지않음
@@ -70,7 +70,7 @@ for idx in depth2:
             depth3.append(list['id'])
 
 
-# In[113]:
+# In[174]:
 
 
 # depth4 카테고리 저장
@@ -86,7 +86,7 @@ for idx in depth3:
         print()
 
 
-# In[115]:
+# In[175]:
 
 
 # 'id' -> '_id'
@@ -94,4 +94,15 @@ for idx in depth3:
 # True -> true
 
 print(total04)
+
+file_path =  '/Users/yoonsungoh/Documents/develope/category/화장품.json'
+
+with open(file_path, 'w') as outfile:
+    json.dump(total04, outfile, indent=4 ,ensure_ascii=False)
+
+
+# In[ ]:
+
+
+
 
